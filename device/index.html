@@ -1,0 +1,48 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Time Image Analysis</title>
+</head>
+<body>
+    <h1>Real-Time Image Analysis</h1>
+    <div>
+        <img id="videoFrame" src="" alt="Video Frame" width="640" height="480">
+    </div>
+    <div>
+        <h2>Analysis:</h2>
+        <p id="analysisResult">Awaiting analysis...</p>
+    </div>
+
+    <script>
+        const ws = new WebSocket('ws://your_server_ip:8081/ws'); // Replace with your server IP and port
+
+        ws.onopen = () => {
+            console.log('WebSocket connection established.');
+        };
+
+        ws.onmessage = (event) => {
+            const data = event.data;
+            if (typeof data === 'string') {
+                // Assuming the server sends analysis text
+                document.getElementById('analysisResult').innerText = data;
+            } else {
+                // If binary data is sent (e.g., image frames)
+                const blob = new Blob([data], { type: 'image/jpeg' });
+                const url = URL.createObjectURL(blob);
+                document.getElementById('videoFrame').src = url;
+            }
+        };
+
+        ws.onclose = () => {
+            console.log('WebSocket connection closed.');
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+    </script>
+</body>
+</html>
