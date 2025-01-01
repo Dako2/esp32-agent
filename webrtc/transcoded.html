@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>WebRTC with ESP32 Stream</title>
+</head>
+<body>
+  <h1>WebRTC + ESP32 Camera Stream</h1>
+
+  <!-- Video from ESP32 -->
+    <video
+    id="myVideo"
+    src="http://localhost:8080/transcoded"
+    autoplay
+    controls
+    crossOrigin="anonymous"
+    ></video>
+  <br />
+  <button id="startButton">Start WebRTC</button>
+
+  <script src="app.js"></script>
+</body>
+</html>

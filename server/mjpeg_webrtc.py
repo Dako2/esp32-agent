@@ -85,7 +85,8 @@ async def run_webRTC(mjpeg_url: str):
     #    - On Linux, "default" is typically your default capture device.
     #    - On Windows, you may need to specify something else.
     logger.info("Creating MediaPlayer for default audio input...")
-    audio_player = MediaPlayer("default")
+    #audio_player = MediaPlayer("default")
+    audio_player = MediaPlayer('MacBook Air Microphone', format='avfoundation') #Mac
     if audio_player.audio:
         logger.info("Adding audio track to the RTCPeerConnection")
         pc.addTrack(audio_player.audio)
@@ -139,7 +140,7 @@ async def run_webRTC(mjpeg_url: str):
 if __name__ == "__main__":
     """
     Usage:
-      python mjpeg_webrtc.py http://<esp32_ip>/stream
+      python mjpeg_webrtc.py http://192.168.86.245:81/stream
 
     1) Run the script
     2) You'll get an SDP offer. Copy it to your remote peer (e.g., a browser),
